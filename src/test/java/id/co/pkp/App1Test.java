@@ -101,8 +101,8 @@ public class App1Test {
                 .newContext();
         Page page = browser.newPage();
         page.navigate("https://www.programsbuzz.com/user/login");
-        page.locator("#edit-name").type("nana");
-        page.locator("#edit-pass").type("nnv");
+        page.locator("#edit-name").type("yuji");
+        page.locator("#edit-pass").type("yuji");
         page.locator("(//input[@type='submit'])[2]").click();
         String actualText = page.locator("//a[normalize-space()='Forgot your password?']").textContent();
         System.out.println(actualText);
@@ -112,6 +112,27 @@ public class App1Test {
 
         System.out.println("This part is executed");
         soft.assertAll();
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
+    @Test
+    @DisplayName("Assert Title Test")
+    public void assertTitleTest() {
+        Playwright playwright = Playwright.create();
+        BrowserContext browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false))
+                .newContext();
+        Page page = browser.newPage();
+        page.navigate("http://www.programsbuzz.com");
+        String title = page.title();
+        String expectedTitle = "ProgramsBuzz - Online Technical Courses";
+        if (title.equalsIgnoreCase(expectedTitle)) {
+            System.out.println("Title Match Verfied");
+        } else {
+            System.out.println("Not a match!!");
+        }
 
         page.close();
         browser.close();
