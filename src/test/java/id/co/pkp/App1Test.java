@@ -91,6 +91,7 @@ public class App1Test {
         String textContent = toolTipText.textContent();
         System.out.println(textContent);
 
+        page.close();
         browser.close();
         playwright.close();
     }
