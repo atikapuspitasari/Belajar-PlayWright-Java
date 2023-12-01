@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
+import java.awt.*;
+
 public class App1Test {
     @Test
     @DisplayName("Test Web PKP")
@@ -211,7 +213,7 @@ public class App1Test {
 
     @Test
     @DisplayName("How to Refresh Page")
-    public void howtoRefreshPage() {
+    public void howtoRefreshPageTest() {
         Playwright playwright = Playwright.create();
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
         Page page = browser.newPage();
@@ -221,6 +223,32 @@ public class App1Test {
         page.locator("//a[normalize-space()='JQuery Popup Model']").click();
         String textContent = page.locator("//p[normalize-space()='This is Sample Popup.']").textContent();
         System.out.println(textContent);
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
+    @Test
+    @DisplayName("Maximize Browser")
+    public void maximizeBrowserTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+
+        browser.newContext(new Browser.NewContextOptions().setViewportSize(800, 600));
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        double height = screenSize.getHeight();
+
+//        otomatis pengaturan ukuran window
+//        int width = (int) screenSize.getWidth();
+//        int height = (int) screenSize.getHeight();
+//        BrowserContext newContext = browser.newContext(new Browser.NewContextOptions().setViewportSize(width, height));
+//        Page page = browser.newPage();
+
+        Page page = browser.newPage();
+        page.navigate("https://www.google.co.id");
 
         page.close();
         browser.close();
