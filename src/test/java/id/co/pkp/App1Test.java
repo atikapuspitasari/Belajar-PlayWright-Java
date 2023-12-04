@@ -254,5 +254,38 @@ public class App1Test {
         browser.close();
         playwright.close();
     }
+
+    @Test
+    @DisplayName("Get First and Last Element in Playwright")
+    public void getFirstAndLastElementTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+        //      Find the Fisrt Element using the first method
+        page.navigate("https://www.programsbuzz.com/search/node?keys=playwright+java");
+        Locator listEls = page.locator("//h3[@class='search-result__title']");
+        listEls.first().click();
+
+//        Find the first Element using Nth Method
+        page.navigate("https://www.programsbuzz.com/search/node?keys=playwright+java");
+        Locator listEle2 = page.locator("//h3[@class='search-result__title']");
+        listEle2.nth(0).click();
+
+//        Find the Last Element using the last method
+        page.navigate("https://www.programsbuzz.com/search/node?keys=playwright+java");
+        Locator listEle3 = page.locator("//h3[@class='search-result__title']");
+        listEle3.last().click();
+
+//        Find the Last Element using Nth Method
+        page.navigate("https://www.programsbuzz.com/search/node?keys=playwright+java");
+        Locator listEle4 = page.locator("//h3[@class='search-result__title']");
+        listEle4.nth(-1).click();
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
 }
 
