@@ -498,8 +498,8 @@ public class App1Test {
     }
 
     @Test
-    @DisplayName("Handle Alert")
-    public void handleAlertTest() {
+    @DisplayName("Handle Alert Button")
+    public void handleAlertButtonTest() {
         Playwright playwright = Playwright.create();
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
         BrowserContext newContext = browser.newContext(
@@ -508,10 +508,28 @@ public class App1Test {
 
         page.navigate("http://autopract.com/selenium/alert5/");
         page.onDialog(Dialog::accept);
-
         page.locator("#alert-button").click();
+
         newContext.close();
         playwright.close();
     }
+
+    @Test
+    @DisplayName("Handle Alert Confirm Alert")
+    public void handleAlertConfirmTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        BrowserContext newContext = browser.newContext(
+                new Browser.NewContextOptions().setRecordVideoDir(Paths.get("Videos/")).setRecordVideoSize(1280, 720));
+        Page page = newContext.newPage();
+
+        page.navigate("http://autopract.com/selenium/alert5/");
+        page.onDialog(Dialog::dismiss);
+        page.locator("#confirm-button").click();
+
+        newContext.close();
+        playwright.close();
+    }
+
 }
 
