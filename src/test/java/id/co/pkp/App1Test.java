@@ -515,7 +515,7 @@ public class App1Test {
     }
 
     @Test
-    @DisplayName("Handle Alert Confirm Alert")
+    @DisplayName("Handle Alert Confirm")
     public void handleAlertConfirmTest() {
         Playwright playwright = Playwright.create();
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
@@ -531,5 +531,23 @@ public class App1Test {
         playwright.close();
     }
 
+    @Test
+    @DisplayName("Handle Alert Prompt")
+    public void handleAlertPromptTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        BrowserContext newContext = browser.newContext(
+                new Browser.NewContextOptions().setRecordVideoDir(Paths.get("Videos/")).setRecordVideoSize(1280, 720));
+        Page page = newContext.newPage();
+
+        page.navigate("http://autopract.com/selenium/alert5/");
+        page.onDialog(dialog -> {
+            dialog.accept("20");
+        });
+        page.locator("#prompt-button").click();
+
+        newContext.close();
+        playwright.close();
+    }
 }
 
