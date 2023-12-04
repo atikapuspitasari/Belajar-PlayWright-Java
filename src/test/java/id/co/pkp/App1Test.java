@@ -462,5 +462,37 @@ public class App1Test {
         browser.close();
         playwright.close();
     }
+
+    @Test
+    @DisplayName("Handle Multiple Tabs")
+    public void handleMultipleTabsTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+//        Link tidak bisa diakses
+        page.navigate("https://www.programsbuzz.com/");
+        page.waitForPopup(new Page.WaitForPopupOptions().setPredicate(p -> p.context().pages().size() == 2), () -> {
+            page.locator("a[href='https://www.ivagus.com']").click();
+        });
+
+        List<Page> pages = page.context().pages();
+
+        for (Page tabs : pages) {
+
+            tabs.waitForLoadState();
+            System.out.println(tabs.url());
+        }
+
+        Page pbPage = pages.get(0);
+        Page ivagusPage = pages.get(1);
+
+        System.out.println(pbPage.url());
+        System.out.println(ivagusPage.url());
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
 }
 
