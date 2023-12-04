@@ -343,14 +343,23 @@ public class App1Test {
     }
 
     @Test
-    @DisplayName("Handle Dropdown")
-    public void handleDropdownTest() {
+    @DisplayName("Using Combo Box")
+    public void usingComboBoxTest() {
         Playwright playwright = Playwright.create();
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
         Page page = browser.newPage();
 
+//        Dropdown
         page.navigate("http://autopract.com/selenium/dropdown1/");
         page.selectOption(".custom-select", "item2");
+
+//        Dynamic Dropdown
+        page.navigate("http://autopract.com/selenium/dropdown4/");
+        page.locator("//span[@class='caret']").click();
+        Locator countries = page.locator("//div[@role='combobox']");
+        List<String> allInnerTexts = countries.allInnerTexts();
+
+        allInnerTexts.forEach(System.out::println);
 
         page.close();
         browser.close();
