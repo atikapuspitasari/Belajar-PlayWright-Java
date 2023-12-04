@@ -425,5 +425,26 @@ public class App1Test {
         playwright.close();
     }
 
+    @Test
+    @DisplayName("Handle Frame")
+    public void handleFrameText() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+//        link tidak dapat diakses
+        page.navigate("http://www.maths.surrey.ac.uk/explore/nigelspages/frame2.html");
+
+        FrameLocator middleFrame = page.frameLocator("//frame[@src='message.htm']");
+
+        middleFrame.locator("//input[@name='name']").type("Naruto Uzumaki");
+        middleFrame.locator("//textarea[@name='suggestions']").type("I Am Inside The Frame");
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
+
 }
 
