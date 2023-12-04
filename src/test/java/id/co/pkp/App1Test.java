@@ -408,12 +408,17 @@ public class App1Test {
         page.locator("//input[@value='two']").click();
 
 //        Using Check
-        page.navigate("http://autopract.com/selenium/form5//");
+//        page.navigate("http://autopract.com/selenium/form5//");
         page.locator("//input[@value='four']").check();
 
 //        Using UnCheck
-        page.navigate("http://autopract.com/selenium/form5//");
+//        page.navigate("http://autopract.com/selenium/form5//");
         page.locator("//input[@value='four']").uncheck();
+
+//        Click Radio Button
+//        page.navigate("http://autopract.com/selenium/form5/");
+        page.locator("input[value='CA']").click();
+        page.locator("input[value='mac']").check();
 
         page.close();
         browser.close();
