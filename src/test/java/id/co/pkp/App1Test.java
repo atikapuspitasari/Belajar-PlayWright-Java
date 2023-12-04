@@ -335,10 +335,28 @@ public class App1Test {
 //        page.locator("xpath=//input[@id= 'edit-name']").type("Naruto");
         page.locator("//input[@id= 'edit-name']").type("Naruto");
         page.locator("//input[@id= 'edit-pass']").type("Sasuke");
+        page.locator("//input[@id= 'edit-submit']").click();
 
         page.close();
         browser.close();
         playwright.close();
     }
+
+    @Test
+    @DisplayName("Handle Dropdown")
+    public void handleDropdownTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+        page.navigate("http://autopract.com/selenium/dropdown1/");
+        page.selectOption(".custom-select", "item2");
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
+
 }
 
