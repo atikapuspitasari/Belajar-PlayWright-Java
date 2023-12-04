@@ -7,6 +7,8 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import java.awt.*;
+import java.util.List;
+
 
 public class App1Test {
     @Test
@@ -281,6 +283,35 @@ public class App1Test {
         page.navigate("https://www.programsbuzz.com/search/node?keys=playwright+java");
         Locator listEle4 = page.locator("//h3[@class='search-result__title']");
         listEle4.nth(-1).click();
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
+
+    @Test
+    @DisplayName("Get List of Elements")
+    public void getListofElementTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+//      Get the count of elements present
+        page.navigate("https://www.programsbuzz.com/search/node?keys=playwright+java");
+        Locator listEle = page.locator("//h3[@class='search-result__title']");
+        int count = listEle.count();
+        Assert.assertEquals(count, 10);
+
+//      Nth content filter
+        page.navigate("https://www.programsbuzz.com/search/node?keys=playwright+java");
+        String textContent = listEle.nth(1).textContent();
+        System.out.println(textContent);
+
+//      Display a list of texts
+        page.navigate("https://www.programsbuzz.com/search/node?keys=playwright+java");
+        List<String> allTextContents = listEle.allTextContents();
+        System.out.println(allTextContents);
 
         page.close();
         browser.close();
