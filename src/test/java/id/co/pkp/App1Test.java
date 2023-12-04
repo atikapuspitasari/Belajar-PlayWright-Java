@@ -445,6 +445,22 @@ public class App1Test {
         playwright.close();
     }
 
+    @Test
+    @DisplayName("Handle Nested Frames")
+    public void handleNestedFramesTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
 
+        page.navigate("https://the-internet.herokuapp.com/nested_frames");
+        FrameLocator parentFrame = page.frameLocator("//frame[@name='frame-top']");
+        FrameLocator middleFrame = parentFrame.frameLocator("//frame[@name='frame-middle']");
+        String textContent = middleFrame.locator("body").textContent();
+        System.out.println(textContent);
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
 }
 
