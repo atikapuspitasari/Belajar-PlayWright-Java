@@ -368,7 +368,7 @@ public class App1Test {
 
     @Test
     @DisplayName("Handle Autocomplete")
-    public void handleAutocomplete() {
+    public void handleAutocompleteTest() {
         Playwright playwright = Playwright.create();
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
         Page page = browser.newPage();
@@ -390,6 +390,30 @@ public class App1Test {
                 break;
             }
         }
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
+    @Test
+    @DisplayName("Check and Uncheck Checkbox")
+    public void checkandUncheckCheckboxTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+//        Using Click Method
+        page.navigate("http://autopract.com/selenium/form5//");
+        page.locator("//input[@value='two']").click();
+
+//        Using Check
+        page.navigate("http://autopract.com/selenium/form5//");
+        page.locator("//input[@value='four']").check();
+
+//        Using UnCheck
+        page.navigate("http://autopract.com/selenium/form5//");
+        page.locator("//input[@value='four']").uncheck();
 
         page.close();
         browser.close();
