@@ -8,7 +8,10 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import java.awt.*;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -573,5 +576,35 @@ public class App1Test {
         browser.close();
         playwright.close();
     }
+
+    @Test
+    @DisplayName("Take Screenshot in Playwright Java")
+    public void takeScreenshotTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+        page.navigate("http://autopract.com/selenium/upload1/");
+
+//        page.setInputFiles("//input[@type='file']",
+//                Paths.get("C:\\Users\\arili\\git\\Assignments\\Selenium\\target\\CRED.xlsx"));
+//        page.screenshot(new Page.ScreenshotOptions()
+//                .setPath(Paths.get("C:\\Users\\arili\\git\\Assignments\\Selenium\\target\\uploadPage.png")));
+
+//        get final screenshot
+//        Path screenshotPath = Paths.get("Test_" + System.currentTimeMillis() + ".jpg");
+        LocalDateTime dateTime = LocalDateTime.now();
+//        System.out.println(dateTime.format(DateTimeFormatter.BASIC_ISO_DATE));
+
+        String tanggal = dateTime.format(DateTimeFormatter.ofPattern("ddMMuuuu_HHmmss"));
+        System.out.println(tanggal);
+        Path screenshotPath = Paths.get("Test1_" + tanggal + ".jpg");
+        page.screenshot(new Page.ScreenshotOptions().setPath(screenshotPath).setFullPage(true));
+
+        page.close();
+        browser.close();
+        playwright.close();
+
+    }
+
 }
 
