@@ -56,4 +56,29 @@ public class Latihan_PlayWright {
         browser.close();
         playwright.close();
     }
+
+    @Test
+    @DisplayName("Test Negative Password Test")
+    public void passwordNegativeTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+        page.navigate("https://practicetestautomation.com/practice-test-login/");
+
+        page.locator("#username").type("student");
+        page.locator("#password").type("incorrectPassword ");
+        page.locator("#submit").click();
+
+        page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions()
+                .setName("Submit")).last().click();
+
+//        assertThat(page.getByText("Your username is invalid!")).isVisible();
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
+
 }
+
