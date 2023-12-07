@@ -79,6 +79,23 @@ public class Latihan_PlayWright {
         playwright.close();
     }
 
+    @Test
+    @DisplayName("Test Exceptions")
+    public void exceptionTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+        page.navigate("https://practicetestautomation.com/practice-test-exceptions/");
+
+        page.locator("#row1").type("Pizza");
+        page.locator("#add_btn").click();
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
 
 }
 
