@@ -96,6 +96,26 @@ public class Latihan_PlayWright {
         playwright.close();
     }
 
+    @Test
+    @DisplayName("Test Element Not Interactable Exception")
+    public void elementNotInteractableExceptionTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+        page.navigate("https://practicetestautomation.com/practice-test-exceptions/");
+        page.locator("#add_btn").click();
+
+        page.locator("#row2").type("Kentang");
+
+        page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions()
+                .setName("Save")).last().click();
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
 
 }
 
