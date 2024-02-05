@@ -8,6 +8,9 @@ import com.microsoft.playwright.options.AriaRole;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Latihan_PlayWright {
     @Test
     @DisplayName("Test Login Positive Test")
@@ -50,7 +53,8 @@ public class Latihan_PlayWright {
         page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions()
                 .setName("Submit")).last().click();
 
-//        assertThat(page.getByText("Your username is invalid!")).isVisible();
+        Path screenshotPath = Paths.get("TEST CASE 2" + System.currentTimeMillis() + ".jpg");
+        page.screenshot(new Page.ScreenshotOptions().setPath(screenshotPath));
 
         page.close();
         browser.close();
@@ -104,12 +108,11 @@ public class Latihan_PlayWright {
         Page page = browser.newPage();
 
         page.navigate("https://practicetestautomation.com/practice-test-exceptions/");
+
         page.locator("#add_btn").click();
-
-        page.locator("#row2").type("Kentang");
-
-        page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions()
-                .setName("Save")).last().click();
+//        page.getByLabel("Row 2").fill("Kentang");
+        page.getByLabel("Row 2").type("Kentang");
+        page.locator("#save_btn").click();
 
         page.close();
         browser.close();
