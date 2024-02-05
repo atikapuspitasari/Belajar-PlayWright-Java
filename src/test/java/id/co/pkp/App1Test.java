@@ -666,4 +666,26 @@ public class App1Test {
         playwright.close();
     }
 
+    @Test
+    @DisplayName("Upload File in Playwright Java 2")
+    public void uploadFileTest2() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(200));
+        BrowserContext context = browser.newContext(new Browser.NewContextOptions().setAcceptDownloads(true));
+        Page page = context.newPage();
+
+        page.navigate("https://the-internet.herokuapp.com/upload");
+
+        FileChooser fileChooser = page.waitForFileChooser(() -> page.click("#file-upload"));
+        fileChooser.setFiles(Paths.get("C:\\Users\\PKP\\Downloads\\Data Testing\\airlines.jpg"));
+        page.click("input:has-text(\"Upload\")");
+        page.waitForLoadState();
+        System.out.println(page.locator("#uploaded-files").textContent());
+        page.pause();
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
 }
