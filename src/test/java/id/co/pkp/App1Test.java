@@ -764,6 +764,7 @@ public class App1Test {
 
     @Test
     @DisplayName("Patch API Request using Playwright Java")
+//    untuk mengupadate apa yang mau di update
     public void patchAPIRequestTest() {
         Playwright playwright = Playwright.create();
         APIRequestContext request = playwright.request().newContext();
@@ -773,8 +774,8 @@ public class App1Test {
 
         HashMap<String, String> data = new HashMap<>();
 
-        data.put("name", "Sasuke");
-        data.put("job", "Uchiha");
+        data.put("name", "Haech");
+        data.put("job", "Sing");
 
         String response = request.patch("https://reqres.in/api/users/2", RequestOptions.create().setData(data)).text();
         System.out.println(response);
@@ -786,7 +787,28 @@ public class App1Test {
         page.close();
         browser.close();
         playwright.close();
+    }
 
+    @Test
+    @DisplayName("Delete API Request using Playwright Java")
+    public void deleteAPIRequestTest() {
+        Playwright playwright = Playwright.create();
+        APIRequestContext request = playwright.request().newContext();
+
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+        HashMap<String, String> data = new HashMap<>();
+
+        data.put("name", "Haech");
+        data.put("job", "Sing");
+
+        String response = request.delete("https://reqres.in/api/users/2", RequestOptions.create().setData(data)).text();
+        System.out.println(response);
+
+        page.close();
+        browser.close();
+        playwright.close();
     }
 
 }
