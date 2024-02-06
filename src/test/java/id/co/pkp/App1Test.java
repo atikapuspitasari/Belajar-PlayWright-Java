@@ -1,7 +1,10 @@
 package id.co.pkp;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.microsoft.playwright.Dialog;
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.RequestOptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
@@ -716,7 +719,17 @@ public class App1Test {
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
         Page page = browser.newPage();
 
-        HashMap<String, String>
+        HashMap<String, String> data = new HashMap<>();
+
+        data.put("name", "Naruto");
+        data.put("job", "Ninja");
+
+        String response = request.post("https://reqres.in/api/users", RequestOptions.create().setData(data)).text();
+
+        System.out.println(response);
+
+        JsonObject j = new Gson().fromJson(response, JsonObject.class);
+        System.out.println(j.get("name"));
 
         page.close();
         browser.close();
