@@ -19,7 +19,9 @@ public class Project_Latihan {
         page.getByPlaceholder("Masukan Username").fill("15958");
         page.getByPlaceholder("Masukan Password").fill("password");
 
-        page.locator("#btn btn-fif btn-block btn-flat").click();
+        page.locator("btn btn-fif btn-block btn-flat").click();
+//        page.click("input:has-text(\"Upload\")");
+//        page.locator("//html/body/selection/div[1]/div/div/div[1]/a")::click;
 
         page.close();
         browser.close();

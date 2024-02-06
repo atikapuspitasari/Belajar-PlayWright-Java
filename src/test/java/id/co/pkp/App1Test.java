@@ -12,7 +12,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+
+import static org.testng.AssertJUnit.assertEquals;
 
 
 public class App1Test {
@@ -682,6 +685,38 @@ public class App1Test {
         page.waitForLoadState();
         System.out.println(page.locator("#uploaded-files").textContent());
         page.pause();
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
+    @Test
+    @DisplayName("Get API Request using Playwright Java")
+    public void getAPIRequestTest() {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+        Response response = page.navigate("https://reqres.in/api/users?page=2");
+        int status = response.status();
+        System.out.println(status);
+        assertEquals(status, 200);
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
+
+    @Test
+    @DisplayName("Post API Request using Playwright Java")
+    public void postAPIRequestTest() {
+        Playwright playwright = Playwright.create();
+        APIRequestContext request = playwright.request().newContext();
+
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+        HashMap<String, String>
 
         page.close();
         browser.close();
